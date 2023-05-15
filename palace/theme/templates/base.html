@@ -1,0 +1,29 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Django Tailwind</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		{% tailwind_css %}
+	</head>
+
+	<body>
+
+		{% for id, list in movies.items %}
+		<div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto my-8">
+			<img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
+			<div class="px-6 py-4">
+			  <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+			  <p class="text-gray-600 text-base">
+					{% for para in list %}
+					{{ para }}
+					{% endfor %}
+			  </p>
+			</div>
+		</div>
+				{% endfor %}
+
+	</body>
+</html>
