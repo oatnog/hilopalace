@@ -15,6 +15,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-root --no-interaction
 COPY . /code
 
+RUN ls -lR /code
+
 EXPOSE 8000
 
 CMD ["gunicorn", "--bind", ":8000", "--chdir", "palace", "--workers", "2", "palace.wsgi"]
