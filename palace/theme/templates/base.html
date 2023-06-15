@@ -11,13 +11,13 @@
 
 	<body>
 
-		{% for id, list in movies.items %}
+		{% for movie in movies %}
 		<div class="max-w-sm rounded overflow-hidden shadow-lg mx-auto my-8">
-			<img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
+			<img class="w-full" src="{{movie.image}}" alt="{{movie.title}}">
 			<div class="px-6 py-4">
-			  <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+			  <div class="font-bold text-xl mb-2">{{movie.title}}</div>
 			  <p class="text-gray-600 text-base">
-					{% for para in list %}
+					{% for para in movie.info %}
 					{{ para }}
 					{% endfor %}
 			  </p>

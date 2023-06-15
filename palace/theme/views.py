@@ -5,6 +5,7 @@ from django.shortcuts import render
 from bs4 import BeautifulSoup
 import requests
 
+
 def homePageView(request):
 
     movies_url = 'https://hilopalace.com/hpt_event_categories/movies/'
@@ -15,19 +16,35 @@ def homePageView(request):
 
     soup = BeautifulSoup(page.content, 'html.parser')
 
-    # article = soup.article
-
+    titles = [title.text for title in soup.select('.entry-title')]
+    images: list = [image['src'] for image in soup.select('.post-image')]
 
     results = soup.find_all('article')
-    print(f"Found {len(results)} articles")
+    print(f'Found {len(results)} articles')
 
-    movies: dict = {}
+    movies: list = []
 
-    for article in results:
-        postid = [value[5:] for value in article['class'] if value.startswith('post-')]
-    
+    # skip first Title entry, as it's page title not the entry title
+    for article, link, title in zip(results, images, titles[1:]):
+        postid = [
+            value[5:]
+            for value in article['class']
+            if value.startswith('post-')
+        ]
+
         movie_info = [para.text.strip() for para in article.find_all('p')]
-        movies[postid[0]] = movie_info
-    
-    pprint(movies)    
-    return render(request=request,template_name='base.html', context={'movies': movies})
+        movies.append(
+            {
+                'id': postid[0],
+                'title': title,
+                'info': movie_info,
+                'image': link,
+            }
+        )
+
+    # pprint(movies)
+    return render(
+        request=request,
+        template_name='base.html',
+        context={'movies': movies},
+    )
