@@ -46,5 +46,5 @@ def homePageView(request):
     return render(
         request=request,
         template_name='base.html',
-        context={'movies': movies},
+        context={'page_title': titles[0], 'movies': movies},
     )

@@ -1,3 +1,4 @@
 /reskin
 /soup.py
 *.pyc
+.env
