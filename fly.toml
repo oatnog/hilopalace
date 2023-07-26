@@ -17,6 +17,9 @@ console_command = "/code/manage.py shell"
   auto_start_machines = true
   min_machines_running = 0
 
+[deploy]
+  strategy = "bluegreen"
+
 [[statics]]
   guest_path = "/code/static"
   url_prefix = "/static/"

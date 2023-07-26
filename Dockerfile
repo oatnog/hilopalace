@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.11-slim-buster
+ARG PYTHON_VERSION=3.11-slim-bookworm
 
 FROM python:${PYTHON_VERSION}
 
@@ -17,6 +17,4 @@ COPY . /code
 
 RUN ls -lR /code
 
-EXPOSE 8000
-
-CMD ["gunicorn", "--bind", ":8000", "--chdir", "palace", "--workers", "2", "palace.wsgi"]
+CMD ["gunicorn", "--chdir", "palace", "--workers", "2", "palace.wsgi"]
